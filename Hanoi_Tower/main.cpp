@@ -2,23 +2,30 @@
 #include <vector>
 using namespace std;
 
+void hanoi(int deskCount, const char* base, const char* target, const char* move)
+{
+	if (deskCount <= 0)
+	{
+		return;
+	}
+
+	//ベースの一番大きい円盤を動かすために、
+	//上に積まれている、円盤を動かす。
+	hanoi(deskCount - 1, base, move, target);
+
+	//ログを出す。
+	printf("DeskNo.%d Moved.... %s -> %s\n", deskCount, base, target);
+
+	hanoi(deskCount - 1, move, target, base);
+}
 
 int main()
 {
-	//丸の数。
+	//円盤の数。
 	int count = 3;
 
-	vector<int> LeftTower, CenterTower, RightTower;
-
-	for (int i = count; i > 0; i--)
-	{
-		//一番左のタワーに降順で積んでいく。
-		LeftTower.push_back(i);
-	}
-
-
-	
-
+	hanoi(count, "Left", "Center", "Right");
 
 	return 0;
 }
+
